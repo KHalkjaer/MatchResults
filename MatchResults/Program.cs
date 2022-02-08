@@ -7,7 +7,7 @@ namespace MatchResults
     {
         static void Main(string[] args)
         {
-            string matchData = System.IO.File.ReadAllText(@"C:\Users\KAHJ\Downloads\Sidste runde i hver kamp\get5_backup_matchmajorkamp2_map0_round29.txt");
+            string matchData = System.IO.File.ReadAllText(@"C:\Users\KAHJ\Downloads\Sidste runde i hver kamp\get5_backup_matchmajorkamp1_map0_round29.txt");
             
             string[] matchArray = matchData.Split("\"");
             List<string> players = new List<string>();
@@ -43,8 +43,10 @@ namespace MatchResults
             {
                 bool rounds = false;
                 bool kills = false;
+                bool hsKills = false;
                 bool deaths = false;
                 bool assists = false;
+                bool score = false;
                 bool damage = false;
                 bool mvp = false;
                 bool oneKill = false;
@@ -79,9 +81,18 @@ namespace MatchResults
 
                         for (int c4 = i3; c4 < i3 + 50; c4++)
                         {
-                            if (matchArray[c4] == "deaths" && deaths == false)
+                            if (matchArray[c4] == "headshot_kills" && hsKills == false)
                             {
                                 playerData[2] = matchArray[c4 + 2];
+                                hsKills = true;
+                            }
+                        }
+
+                        for (int c4 = i3; c4 < i3 + 50; c4++)
+                        {
+                            if (matchArray[c4] == "deaths" && deaths == false)
+                            {
+                                playerData[3] = matchArray[c4 + 2];
                                 deaths = true;
                             }
                         }
@@ -90,8 +101,17 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "assists" && assists == false)
                             {
-                                playerData[3] = matchArray[c4 + 2];
+                                playerData[4] = matchArray[c4 + 2];
                                 assists = true;
+                            }
+                        }
+
+                        for (int c4 = i3; c4 < i3 + 50; c4++)
+                        {
+                            if (matchArray[c4] == "contribution_score" && score == false)
+                            {
+                                playerData[5] = matchArray[c4 + 2];
+                                score = true;
                             }
                         }
 
@@ -99,7 +119,7 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "damage" && damage == false)
                             {
-                                playerData[4] = matchArray[c4 + 2];
+                                playerData[6] = matchArray[c4 + 2];
                                 damage = true;
                             }
                         }
@@ -108,7 +128,7 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "mvp" && mvp == false)
                             {
-                                playerData[5] = matchArray[c4 + 2];
+                                playerData[7] = matchArray[c4 + 2];
                                 mvp = true;
                             }
                         }
@@ -117,7 +137,7 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "1kill_rounds" && oneKill == false)
                             {
-                                playerData[6] = matchArray[c4 + 2];
+                                playerData[8] = matchArray[c4 + 2];
                                 oneKill = true;
                             }
                         }
@@ -126,7 +146,7 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "2kill_rounds" && twoKill == false)
                             {
-                                playerData[7] = matchArray[c4 + 2];
+                                playerData[9] = matchArray[c4 + 2];
                                 twoKill = true;
                             }
                         }
@@ -135,7 +155,7 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "3kill_rounds" && threeKill == false)
                             {
-                                playerData[8] = matchArray[c4 + 2];
+                                playerData[10] = matchArray[c4 + 2];
                                 threeKill = true;
                             }
                         }
@@ -144,21 +164,21 @@ namespace MatchResults
                         {
                             if (matchArray[c4] == "4kill_rounds" && fourKill == false)
                             {
-                                playerData[9] = matchArray[c4 + 2];
+                                playerData[11] = matchArray[c4 + 2];
                                 fourKill = true;
                             }
                         }
 
-                        for (int c4 = i3; c4 < i3 + 75; c4++)
+                        for (int c4 = i3; c4 < i3 + 100; c4++)
                         {
                             if (matchArray[c4] == "5kill_rounds" && fiveKill == false)
                             {
-                                playerData[10] = matchArray[c4 + 2];
+                                playerData[12] = matchArray[c4 + 2];
                                 fiveKill = true;
                             }
                         }
 
-                        if (playerData[4] != "")
+                        if (playerData[0] != "")
                         {
                             Console.WriteLine(p + "," + 
                                                 playerData[0] + "," + 
@@ -171,7 +191,9 @@ namespace MatchResults
                                                 playerData[7] + "," +
                                                 playerData[8] + "," +
                                                 playerData[9] + "," +
-                                                playerData[10]);
+                                                playerData[10] + "," +
+                                                playerData[11] + "," +
+                                                playerData[12]);
                         }
                         
 
@@ -192,6 +214,8 @@ namespace MatchResults
                 playerData[8] = "";
                 playerData[9] = "";
                 playerData[10] = "";
+                playerData[11] = "";
+                playerData[12] = "";
 
                 i2++;
             }
